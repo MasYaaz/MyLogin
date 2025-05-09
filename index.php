@@ -1,3 +1,38 @@
+<?php
+    require_once("config.php");
+
+    if(isset($_POST['register'])){
+    
+        // filter data yang diinputkan
+        $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+        $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+        // enkripsi password
+        $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    
+    
+        // menyiapkan query
+        $sql = "INSERT INTO users (firstname, lastname, email, password) 
+                VALUES (:firstname, :lastname, :email, :password)";
+        $stmt = $db->prepare($sql);
+    
+        // bind parameter ke query
+        $params = array(
+            ":firstname" => $firstname,
+            ":lastname" => $lastname,
+            ":password" => $password,
+            ":email" => $email
+        );
+    
+        // eksekusi query untuk menyimpan ke database
+        $saved = $stmt->execute($params);
+    
+        // jika query simpan berhasil, maka user sudah terdaftar
+        // maka alihkan ke halaman login
+        if($saved) header("Location: login.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -28,36 +63,32 @@
     </header>
     <main>
         <div class="container tengah">
-        <form class="form">
+        <form class="form" action="" method="POST">
             <p class="title">Register</p>
             <p class="message">Signup now and get full access to our app. </p>
                 <div class="flex">
                 <label>
-                    <input required="" placeholder="" type="text" class="input" id="firstname">
+                    <input required="" placeholder="" type="text" class="input" name="firstname" />
                     <span>Firstname</span>
                 </label>
 
                 <label>
-                    <input required="" placeholder="" type="text" class="input" id="lastname">
+                    <input required="" placeholder="" type="text" class="input" name="lastname" />
                     <span>Lastname</span>
                 </label>
             </div>  
                     
             <label>
-                <input required="" placeholder="" type="email" class="input" id="emaile">
+                <input required="" placeholder="" type="email" class="input" name="email" />
                 <span>Email</span>
             </label> 
                 
             <label>
-                <input required="" placeholder="" type="password" class="input" id="password">
+                <input required="" placeholder="" type="password" class="input" name="password" />
                 <span>Password</span>
             </label>
-            <label>
-                <input required="" placeholder="" type="password" class="input" id="confirmpass">
-                <span>Confirm password</span>
-            </label>
-            <button class="submit">Submit</button>
-            <p class="signin">Already have an acount ? <a href="sign-in.html">Signin</a> </p>
+            <button type="submit" class="submit" name="register">Submit</button>
+            <p class="signin">Already have an acount ? <a href="login.php">Signin</a> </p>
         </form>
     </div>
     </main>

@@ -1,3 +1,5 @@
+<?php require_once("auth.php"); ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -28,22 +30,16 @@
     </header>
     <main>
         <div class="container tengah">
-        <form class="form">
-            <p class="title">Sign in</p>
-            <p class="message">Sign in before continue to our web.</p>
-            <label>
-                <input required="" placeholder="" type="email" class="input" id="emaile">
-                <span>Email</span>
-            </label> 
-                
-            <label>
-                <input required="" placeholder="" type="password" class="input" id="password">
-                <span>Password</span>
-            </label>
-            <button class="submit">Sign in</button>
-            <p class="signin">Don't have account? <a href="index.html">Signup</a> </p>
+        <form action="logout.php" method="POST" class="form">
+            <p class="title">Selamat Datang!</p>
+            <p class="message">Selamat datang di akun anda</p>
+            <h5>Email</h5>
+            <p><?php echo $_SESSION["user"]["email"]?></p>
+            <h5>Nama</h5>
+            <p><?php echo $_SESSION["user"]["firstname"]?></p>
+            <button class="submit" type="submit">Log Out</button>
         </form>
-    </div>
+      </div>
     </main>
     <footer>
         <nav class="navbar fixed-bottom bg-transparent bg-body-tertiary">
