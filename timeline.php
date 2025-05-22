@@ -1,4 +1,5 @@
 <?php require_once("auth.php"); ?>
+<!-- ini buat verifikasi login -->
 
 <!DOCTYPE html>
 <html lang="id">
@@ -34,9 +35,16 @@
             <p class="title">Selamat Datang!</p>
             <p class="message">Selamat datang di akun anda</p>
             <h5>Email</h5>
+            
             <p><?php echo $_SESSION["user"]["email"]?></p>
+            <!-- ini buat nampilin string 1 kali -->
+
             <h5>Nama</h5>
-            <p><?php echo $_SESSION["user"]["firstname"]?></p>
+
+            <p><?php echo ucwords($_SESSION["user"]["firstname"]." ".$_SESSION["user"]["lastname"],'UTF-8')?></p>
+            <!-- ini buat nampilin string 2 atau lebih -->
+            <!-- ucwords setelah echo untuk huruf kapital setiap kata -->
+            
             <button class="submit" type="submit">Log Out</button>
         </form>
       </div>

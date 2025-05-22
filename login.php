@@ -89,7 +89,7 @@ if(isset($_POST['login'])){
         <div class="alert alert-danger text-center" role="alert">
             <?php echo $error; ?>
         </div>
-    <?php endif; ?>
+        <?php endif; ?>
     </main>
     <footer>
         <nav class="navbar fixed-bottom bg-transparent bg-body-tertiary">
